@@ -3,6 +3,7 @@
 """This module defines a file storage class."""
 import json
 from pathlib import Path
+from importlib import import_module
 
 
 class FileStorage:
@@ -37,12 +38,8 @@ class FileStorage:
         _objects = FileStorage.__objects
         _dict = {key: _objects.get(key).to_dict()
                  for key in _objects.keys()}
-
         with open(FileStorage.__file_path, "w") as jsonfile:
-            if _objects is None or _objects == {}:
-                jsonfile.write("{}")
-            else:
-                jsonfile.write(json.dumps(_dict))
+            json.dump(_dict, jsonfile)
 
     def reload(self):
         """Deserializes a JSON file"""
@@ -51,7 +48,19 @@ class FileStorage:
                 content = jsonfile.read()
                 if content:
                     _dict = json.loads(content)
+                    _modelsMapper = {
+                        'BaseModel': 'models.base_model',
+                        'Amenity': 'models.amenity',
+                        'City': 'models.city',
+                        'Place': 'models.place',
+                        'Review': 'models.review',
+                        'State': 'models.state',
+                        'User': 'models.user'
+                    }
                     for _obj in _dict.values():
                         class_name = _obj.get('__class__')
-                        del _obj['__class__']
-                        self.new(eval(class_name)(**_obj))
+                        module = import_module(_modelsMapper.get(class_name))
+                        obj_class = getattr(module, class_name)
+                        if obj_class:
+                            del _obj['__class__']
+                            self.new(obj_class(**_obj))
