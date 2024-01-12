@@ -49,6 +49,7 @@
     "id": "390d4770-0f23-410a-bd53-b3a44d5568b7",
     "created_at": "2024-01-11T10:48:00.706692",
     "updated_at": "2024-01-11T10:48:00.706692",
+    "name": "Hugo",
     "__class__": "BaseModel"
   },
   "BaseModel.c3abbf13-1d46-4959-8b14-427079275e18": {
@@ -87,5 +88,11 @@
     "updated_at": "2024-01-11T14:46:13.433767",
     "name": "\"kitchen\"",
     "__class__": "Amenity"
+  },
+  "BaseModel.5e7ee403-f793-4bda-a361-98afca41eae3": {
+    "id": "5e7ee403-f793-4bda-a361-98afca41eae3",
+    "created_at": "2024-01-11T16:35:26.825320",
+    "updated_at": "2024-01-11T16:35:26.825320",
+    "__class__": "BaseModel"
   }
 }

@@ -128,6 +128,9 @@ class HBNBCommand(cmd.Cmd):
             case 4:
                 _all = storage.all()
                 _obj = _all.get('{}.{}'.format(_args[0], _args[1]))
+                if _obj is None:
+                    print("** no instance found **")
+                    return
                 if _args[2] in _obj.__class__.__dict__.keys():
                     value_type = type(_obj.__class__.__dict__.get(_args[2]))
                     _obj.__dict__.update({_args[2]: value_type(_args[3])})

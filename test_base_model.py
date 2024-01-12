@@ -1,12 +1,21 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
 
-my_model = BaseModel()
-print(my_model)
-my_model.save()
-print(my_model)
-my_model_json = my_model.to_dict()
-print(my_model_json)
-print("JSON of my_model:")
-for key in my_model_json.keys():
-    print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+from models.base_model import BaseModel
+from models import storage
+
+model = BaseModel()
+print("STRING REPRESENTATION OF BASEMODEL")
+print(model)
+
+model_json = model.to_dict()
+print("JSON SERIALIZATION OF OBJECT")
+[print("{}: {}".format(key, model_json.get(key)))
+ for key in model_json.keys()]
+
+from_json = BaseModel(**model_json)
+from_json.save()
+
+# Reloading saved objects
+_objs = storage.all()
+[print(value) for key, value in _objs.items()
+ if key.split(".")[1] == from_json.id]
