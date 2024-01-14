@@ -16,6 +16,7 @@ class BaseModel:
             args (list): (unused) a variable-length list of non-keyword args.
             kwargs (dict): a variable-length dictionary of keyword args
         """
+        _format = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -23,7 +24,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
                     self.__dict__.update(
-                        {key: datetime.fromisoformat(str(value))})
+                        {key: datetime.strptime(value, _format)})
                 else:
                     self.__dict__.update({key: value})
         else:
