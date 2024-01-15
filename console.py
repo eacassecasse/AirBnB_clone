@@ -37,9 +37,12 @@ class HBNBCommand(cmd.Cmd):
     - to store and persist objects to a file (in our case, JSON file)
 
     This interpreter will be used to validate the storage engine too.
+
+    Args:
+        prompt (str): text shown when the console is waiting for input
     """
 
-    prompt = '(hbnb) '
+    prompt = "(hbnb) "
     __modelsMapper = {
         'BaseModel': 'models.base_model',
         'Amenity': 'models.amenity',
@@ -49,6 +52,19 @@ class HBNBCommand(cmd.Cmd):
         'State': 'models.state',
         'User': 'models.user'
     }
+
+    def emptyline(self):
+        """Override the default mode to don't execute blank lines"""
+        pass
+
+    def do_EOF(self, line):
+        """This EOF command exit the command line processor\n"""
+        print("")
+        return True
+
+    def do_quit(self, line):
+        """The ``quit`` command exit the command line processor\n"""
+        return True
 
     def default(self, arg):
         """Default behavior for cmd module when input is invalid"""
@@ -213,19 +229,6 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
 
         print(count)
-
-    def emptyline(self):
-        """Override the default mode to don't execute blank lines"""
-        pass
-
-    def do_EOF(self, line):
-        """This EOF command exit the command line processor\n"""
-        print("")
-        return True
-
-    def do_quit(self, line):
-        """The ``quit`` command exit the command line processor\n"""
-        return True
 
 
 if __name__ == '__main__':
