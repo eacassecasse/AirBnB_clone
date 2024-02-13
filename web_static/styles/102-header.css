@@ -1,0 +1,30 @@
+header {
+    background-color: white;
+    height: 64px;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    display: none;
+}
+
+header::after {
+    content: url("../images/logo.png");
+    position: relative;
+    left: 8px;
+}
+
+@media (min-width: 768px) {
+    header {
+        height: 60px;
+        display: inline-block;
+    }
+
+    header::after {
+        left: 12px;
+    }
+}
+
+@media (min-width: 992px) {
+    header::after {
+        left: 20px;
+    }
+}
